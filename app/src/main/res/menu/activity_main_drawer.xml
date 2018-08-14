@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/home_drawer"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="home"
+            android:checked="false" />
+        <item
+            android:id="@+id/profile_drawer"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Profile"
+            android:checked="false" />
+
+        <item
+            android:id="@+id/rate_us_drawer"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Rate Us"
+            android:checked="false" />
+        <item
+            android:id="@+id/share_drawer"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Share"
+            android:checked="false" />
+        <item
+            android:id="@+id/report_a_bug"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Bug" />
+        <item
+            android:id="@+id/reset_tutorials"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Tot"
+            android:checked="false" />
+
+
+    </group>
+
+</menu>
