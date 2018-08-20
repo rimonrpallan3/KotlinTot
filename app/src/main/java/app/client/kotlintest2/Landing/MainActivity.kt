@@ -1,7 +1,9 @@
 package app.client.kotlintest2.Landing
 
 import android.app.Activity
+import android.app.FragmentTransaction
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -18,9 +20,11 @@ import android.widget.TextView
 import app.client.kotlintest2.Landing.model.UserDetails
 import app.client.kotlintest2.R
 import app.client.kotlintest2.SecondActivity.SecondActivity
+import kotlinx.android.synthetic.main.activity_second.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+MainFragment.OnFragmentInteractionListener{
 
 
     lateinit var tvCombine: TextView
@@ -32,10 +36,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var btnCombine: Button
     lateinit var btnDisplay: Button
     lateinit var dlMain: DrawerLayout
+    lateinit var navView: NavigationView
+    lateinit var mainFragment: MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         var rimon: Int = 2
         println("rimon euals 2 : ${rimon.equals(2)}")
 
@@ -64,6 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         etAcNameFirst = findViewById(R.id.etAcNameFirst)
         etAcNameSecond = findViewById(R.id.etAcNameSecond)
         dlMain = findViewById(R.id.dlMain)
+        navView = findViewById(R.id.navView)
         etAge = findViewById(R.id.etAge)
         btnCombine = findViewById(R.id.btnCombine)
         btnDisplay = findViewById(R.id.btnDisplay)
@@ -89,6 +97,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Log.d("EA", userDetails.firstName.toString())
 
         val toogle = ActionBarDrawerToggle(this, dlMain, R.string.drawer_open, R.string.drawer_close)
+        dlMain.addDrawerListener(toogle)
+        toogle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+        mainFragment = MainFragment.newInstance("rimon","pallan")
+
 
     }
 
@@ -107,10 +121,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         when (item.itemId) {
             R.id.home_drawer -> {
-
+                supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.containers, mainFragment)
+                        .addToBackStack(mainFragment.toString())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
             }
             R.id.profile_drawer -> {
 
@@ -148,4 +167,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
